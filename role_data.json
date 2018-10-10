@@ -1,0 +1,30 @@
+[
+{
+    "model": "card.role",
+    "pk": 1,
+    "fields": {
+        "name": "UX"
+    }
+},
+{
+    "model": "card.role",
+    "pk": 2,
+    "fields": {
+        "name": "Design"
+    }
+},
+{
+    "model": "card.role",
+    "pk": 3,
+    "fields": {
+        "name": "Front"
+    }
+},
+{
+    "model": "card.role",
+    "pk": 4,
+    "fields": {
+        "name": "Backend"
+    }
+}
+]

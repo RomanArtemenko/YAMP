@@ -1,0 +1,62 @@
+[
+{
+    "model": "card.status",
+    "pk": 1,
+    "fields": {
+        "name": "New",
+        "is_actuve": true,
+        "order_num": 1,
+        "is_default": true
+    }
+},
+{
+    "model": "card.status",
+    "pk": 2,
+    "fields": {
+        "name": "Ready",
+        "is_actuve": true,
+        "order_num": 2,
+        "is_default": false
+    }
+},
+{
+    "model": "card.status",
+    "pk": 3,
+    "fields": {
+        "name": "In Progress",
+        "is_actuve": true,
+        "order_num": 3,
+        "is_default": false
+    }
+},
+{
+    "model": "card.status",
+    "pk": 4,
+    "fields": {
+        "name": "Ready for Test",
+        "is_actuve": true,
+        "order_num": 4,
+        "is_default": false
+    }
+},
+{
+    "model": "card.status",
+    "pk": 5,
+    "fields": {
+        "name": "Done",
+        "is_actuve": true,
+        "order_num": 5,
+        "is_default": false
+    }
+},
+{
+    "model": "card.status",
+    "pk": 6,
+    "fields": {
+        "name": "Archieved",
+        "is_actuve": true,
+        "order_num": 6,
+        "is_default": false
+    }
+}
+]

@@ -1,0 +1,314 @@
+{% load static %}
+
+!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<title>Single Page App Without A Framework</title>
+
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+ 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+	{% csrf_token %}
+
+	<header class="compact">
+		<!--<h2 class="tzine"><a href="#sign-in">Login</a></h2>-->
+		<div class="user">
+
+			<div class="non-logged-in">
+				<h2 class="tzine"><a href="#sign-in">Login</a></h2>
+			</div>
+
+			<div class="logged-in">
+				<!-- Example single danger button -->
+				<div class="btn-group">
+				  <button type="button" id="username" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Username
+				  </button>
+				  <div class="dropdown-menu">
+				    <a class="dropdown-item" href="#">Profile</a>
+				    <div class="dropdown-divider"></div>
+				    <a class="dropdown-item" id="btnLogout" href="#">Logout</a>
+				  </div>
+				</div>
+			</div>
+
+		</div>
+		<h1><a href="#">YAMP</a></h1>
+	</header>
+
+	<div class="main-content">
+
+		<div class="all-products page">
+
+			<div class="filters">
+				<form>
+
+					<span>MAIN MENU</span>
+
+					<button id="btnNewCard" type="button" class="btn btn-success">New Card</button>
+
+					<ul id="myUL">
+					  <li><span id="mycards">My Cards</span></li>
+					  <li><span class="caret">Collections</span>
+					    <ul class="nested">
+					      <li><span class="caret">Collection 1</span>
+					        <ul class="nested">
+					          <li><span class="caret">Board 1</span>
+					            <ul class="nested">
+									<li><span class="caret">Assigned To (filter 1)</span>
+							            <ul class="nested">
+							              <li class="caret">John Doe</li>
+							              <li class="caret">Team Member 2</li>
+							            </ul>
+							        </li>
+									<li><span class="caret">Tags (filter 2)</span>
+							            <ul class="nested">
+							              <li class="caret">important release</li>
+							            </ul>
+							        </li>
+					            </ul>
+					          </li>
+					          <li><span class="caret">Board 2</span>
+					          </li>
+					        </ul>
+					      </li>
+					      <li><span class="caret">Collection 2</span>
+
+					      </li>
+					    </ul>
+					  </li>
+					</ul>
+
+					<span>Collections</span>
+
+				</form>
+
+			</div>
+
+			<!--<ul class="products-list">-->
+				<!--<script id="products-template" type="x-handlebars-template">​-->
+
+				<!--</script> -->
+			<!--</ul>-->
+
+			<div class="col-md-9 ml-sm-auto col-lg-10 px-4 cards-list">
+				<div class="table-responsive ">
+					<table class="table" id="tableMyCards">
+					  <thead class="thead-light">
+						<tr>
+						  <th scope="col">ID</th>
+						  <th scope="col">Status</th>
+						  <th scope="col">Title</th>
+						  <th scope="col">Created Date</th>
+						  <th scope="col">Assigned to</th>
+						</tr>
+					  </thead>
+					  <tbody>
+							<!-- Card data -->
+					  </tbody>
+					</table>
+          		</div>
+			</div>
+
+
+		</div>
+
+
+		<div class="single-product page">
+			<div class="overlay"></div>
+
+			<div class="preview-large">
+				<h3>Single card view</h3>
+
+
+				<span class="close">×</span>
+			</div>
+		</div>
+
+
+		<div class="single-card page">
+
+				<div class="overlay"></div>
+
+				<div class="preview-large">
+					<div class="card-head">
+						<label id="cardTitle"><h4>#123 Adding some changes</h4></label>
+						<form class="form-inline">
+							<div id="inputTitle" class="form-group">
+								<label class="field-name col-sm" for="inputCardTitle">Title : </label>
+							<input type="text" class="form-control" id="inputCardTitle" value="" size="65">
+							</div>
+						</form>
+					</div>
+
+					<div class="row">
+						<div class="col">
+							<form class="form-inline">
+								<div class="form-group">
+									<label class="field-name" for="cardOwner">Createt by : </label>
+									<input type="text" class="form-control" id="cardOwner" value="" readonly>
+								</div>
+							</form>
+						</div>
+						<div class="col">
+							<!--<label class="field-name">Status : </label>-->
+							<!--<label class="field-val" id="cardStatus">New</label>-->
+
+							<form class="form-inline">
+								<div class="form-group">
+									<label class="field-name" for="cardStatus">Status : </label>
+									<input type="text" class="form-control" id="cardStatus" value="New" readonly>
+								</div>
+							</form>
+						</div>
+						<div class="w-100"></div>
+						<div class="col">
+							<form class="form-inline">
+								<div class="form-group">
+									<label class="field-name" for="cardCreatedDate">Created date : </label>
+									<input type="text" class="form-control" id="cardCreatedDate" value="X" readonly>
+								</div>
+							</form>
+						</div>
+						<div class="col">
+							<!--<form class="form-inline">-->
+								<!--<label class="field-name">Assigned to : </label>-->
+								<!--<label class="field-val" id="cardAssignedTo">Roman Artemenko</label>-->
+							<!--</form>-->
+
+							<form class="form-inline">
+								<div class="form-group">
+									<label class="field-name" for="cardAssignedTo">Createt by : </label>
+									<input type="text" class="form-control" id="cardAssignedTo" value="New User" list="assignedToList">
+									<datalist id="assignedToList">
+										<option value="First" data-value="1">
+										<option value="Second"  data-value="2">
+										<option value="Third" data-value="3">
+									</datalist>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="form-group decription">
+						<label class="decription" for="cardDescription"><strong>Description : </strong></label>
+						<textarea class="form-control textarea" id="cardDescription" rows="8"></textarea>
+					</div>
+
+					<div id="cardErr">
+					</div>
+
+					<div>
+						<button id="btnSaveNewCard" type="button" class="btn btn-danger">Save</button>
+						<button id="btnCancel" type="button" class="btn btn-secondary btn-close">Cancel</button>
+					</div>
+
+					<span class="close">×</span>
+				</div>
+
+		</div>
+
+
+		<div class="sign-in page">
+
+			<div class="overlay"></div>
+
+			<div class="preview-large">
+
+				<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+				<div class="form-signin">
+					  <label for="signInEmail" class="sr-only">Email address</label>
+					  <input type="email" id="signInEmail" class="form-control" placeholder="Email address" required autofocus>
+					  <label for="signInPassword" class="sr-only">Password</label>
+					  <input type="password" id="signInPassword" class="form-control" placeholder="Password" required>
+
+					  <div id="signInErr">
+
+					  </div>
+
+					  <div class="checkbox mb-3">
+
+					  </div>
+
+					<button id="btnSignIn" class="btn btn-primary btn-block">Sign in</button>
+					<!--<button id="btnToSignUp">Sign up</button>-->
+					<a class="btn btn-primary btn-block" href="#sign-up" role="button">Sign Up</a>
+					<!--<button id="btnToSignInFacebook">Sign in Facebook</button>-->
+					<a class="btn btn-primary btn-block" href="http://localhost:8000/auth/facebook" role="button">Sign In Facebook</a>
+
+					  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+				</div>
+
+				<span class="close">×</span>
+
+			</div>
+
+		</div>
+
+
+		<div class="sign-up page">
+			<div class="overlay"></div>
+			<div class="preview-large">
+
+				<h1 class="h3 mb-3 font-weight-normal">Please enter your registration data</h1>
+
+				<div class="form-signin">
+					  <label for="signUpEmail" class="sr-only">Email address</label>
+					  <input type="email" id="signUpEmail" class="form-control" placeholder="Email address" required autofocus>
+					  <label for="signUpUserName" class="sr-only">Username</label>
+					  <input type="text" id="signUpUserName" class="form-control" placeholder="Username" required autofocus>
+					  <label for="signUpFirstName" class="sr-only">First Name</label>
+					  <input type="text" id="signUpFirstName" class="form-control" placeholder="First Name" required autofocus>
+					  <label for="signUpLastName" class="sr-only">Last Name</label>
+					  <input type="text" id="signUpLastName" class="form-control" placeholder="Last Name" required autofocus>
+					  <label for="signUpPhonenumber" class="sr-only">Phonenumber</label>
+					  <input type="text" id="signUpPhonenumber" class="form-control" placeholder="Phonenumber" required autofocus>
+					  <label for="signUpPassword" class="sr-only">Password</label>
+					  <input type="password" id="signUpPassword" class="form-control" placeholder="Password" required>
+					  <label for="signUpPasswordConfirm" class="sr-only">Password confirm</label>
+					  <input type="password" id="signUpPasswordConfirm" class="form-control" placeholder="Password confirm" required>
+
+					  <div id="signUpErr">
+
+					  </div>
+
+
+					  <div class="checkbox mb-3">
+
+					  </div>
+
+					  <button class="btn btn-lg btn-primary btn-block" id="btnRegister">Register</button>
+					  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+				</div>
+
+				<span class="close">×</span>
+			</div>
+		</div>
+
+
+		<div class="error page">
+			<h3>Sorry, something went wrong :(</h3>
+		</div>
+
+	</div>
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+
+
+</body>
+</html>
